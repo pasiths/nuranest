@@ -62,9 +62,9 @@ class _PsychologistProfileScreenState extends State<PsychologistProfileScreen> {
         final resDocData = json.decode(response.body);
 
         // Log the decoded response
-        debugPrint('resDocData: $resDocData');
+        // debugPrint('resDocData: $resDocData');
         // Log the response status code
-        debugPrint('response.statusCode: ${response.statusCode}');
+        // debugPrint('response.statusCode: ${response.statusCode}');
 
         if (response.statusCode == 200 && resDocData['user'] != null) {
           setState(() {
@@ -75,8 +75,8 @@ class _PsychologistProfileScreenState extends State<PsychologistProfileScreen> {
                 doctorDetails['DoctorDetails']['specialization'];
 
             // Log the doctor details
-            debugPrint('Doctor Full Name: $doctorFullName');
-            debugPrint('Doctor Specialization: $doctorSpecialization');
+            // debugPrint('Doctor Full Name: $doctorFullName');
+            // debugPrint('Doctor Specialization: $doctorSpecialization');
           });
         }
       } else {
