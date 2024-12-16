@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nuranest/screens/get_started_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nuranest/screens/login_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeenGetStarted = prefs.getBool('hasSeenGetStarted') ?? false;
+
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(MyApp(hasSeenGetStarted: hasSeenGetStarted));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key}); 
+  final bool hasSeenGetStarted;
+  const MyApp({super.key, required this.hasSeenGetStarted});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Nuranest',
-      debugShowCheckedModeBanner: true,
-      home: GetStartedScreen(),
-      );
+      debugShowCheckedModeBanner: false,
+      home: hasSeenGetStarted ? const LoginScreen() : const GetStartedScreen(),
+    );
   }
 }
-
-

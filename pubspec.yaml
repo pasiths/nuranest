@@ -31,8 +31,8 @@ dependencies:
 
   http: ^1.2.2
   flutter_dotenv: ^5.0.2
-  shared_preferences: ^2.0.18
-  intl: ^0.18.0
+  shared_preferences: ^2.3.3
+  intl: ^0.20.1
   jwt_decoder: ^2.0.1
   flutter:
     sdk: flutter

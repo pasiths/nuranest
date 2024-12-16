@@ -26,6 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
 // Define the _isLoading variable
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus(); // Check login status on initialization
+  }
+  Future<void> _checkLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    final String? user = prefs.getString('user');
+
+    if (token != null && user != null) {
+      // If token and user data exist, navigate to the HomeScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
+  }
+
 // Define the _login method
   Future<void> _login() async {
     try {
@@ -71,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('user', jsonEncode(responseData['user']));
         await prefs.setString('token', token!);
         // If the form is valid, navigate to the HomeScreen
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
@@ -374,7 +393,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 const SizedBox(
-                    height: 80), // Space between buttons and sign up text
+                    height: 40), // Space between buttons and sign up text
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -383,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Don't have an account? ",
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontSize: 13,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         letterSpacing: -0.43,
                       ),
@@ -400,7 +419,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Sign up",
                         style: TextStyle(
                           fontFamily: 'Poppins',
-                          fontSize: 13,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           letterSpacing: -0.43,
                           color: Color.fromRGBO(33, 16, 191, 1),
